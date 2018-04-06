@@ -1,5 +1,6 @@
 <template>
   <div class="results">
+    <Header></Header>
 
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample" @click="viewAllResults">
       Show all results
@@ -7,7 +8,6 @@
     <div class="collapse" id="collapseExample1">
       <Result id="all_results" :value="results"></Result>
     </div>
-
 
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
       View Results by date
@@ -27,16 +27,20 @@
         </button>
       </div>
     </div>
+
+    <!-- Footer -->
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
   import Datepicker from 'vuejs-datepicker';
   import Result from './Result';
+  import Header from './Navbar';
 
   export default {
-    components: {Datepicker, Result},
     name: 'Results',
+    components: {Datepicker, Result, Header},
     props: {
     },
     data(){
@@ -55,7 +59,7 @@
     },
     methods:{
       viewAllResults: function () {
-        this.axios.get('/api/results')
+        this.axios.get('/results')
           .then((response) => {
             console.log(response.data);
             this.results = response.data;
@@ -77,7 +81,7 @@
           //this.date_selected = true;
           return;
         }
-        let url = '/api/results/' + min_date + '/' + max_date;
+        let url = '/results/' + min_date + '/' + max_date;
         console.log(url);
         this.axios.get(url)
           .then((response) => {
@@ -90,12 +94,9 @@
       },
       getMin: function () {
         console.log('Min Date: ' + this.state.min_date);
-
       },
       getMax: function () {
         console.log('Max Date: ' + this.state.max_date);
-
-
       }
     },
     computed:{

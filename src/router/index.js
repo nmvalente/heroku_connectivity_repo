@@ -6,16 +6,27 @@ import CreateBook from '@/components/CreateBook'
 import EditBook from '@/components/EditBook'
 import Results from '@/components/Results'
 import Worklist from '@/components/Worklist'
-import Home from '@/components/Home'
+import Index from '@/components/Index'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'BookList',
-      component: BookList
+      name: 'Index',
+      component: Index
+    },
+    {
+      path: '/results',
+      name: 'Results',
+      component: Results
+    },
+    {
+      path: '/worklist',
+      name: 'Worklist',
+      component: Worklist
     },
     {
       path: '/show-book/:id',
@@ -31,6 +42,11 @@ export default new Router({
       path: '/edit-book/:id',
       name: 'EditBook',
       component: EditBook
+    },
+    {
+      path: '/all-books',
+      name: 'BookList',
+      component: BookList
     }
   ]
 })

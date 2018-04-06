@@ -1,6 +1,8 @@
 <template>
   <div class="worklist">
+    <Header></Header>
     <h1>Create Worklist</h1>
+
     <form id="worklist-create" v-on:submit="addWorklist">
       <input type="text" v-model="newWorklist.sample_number" placeholder="Sample Number">
       <input type="text" v-model="newWorklist.patient_id" placeholder="PatientID">
@@ -60,14 +62,17 @@
       <p>Exam Time: {{wl.exam_time}}</p>
     </div>
 
+    <!-- Footer -->
+    <Footer></Footer>
   </div>
 
 </template>
 
 <script>
 
-  import VueTimepicker from 'vue2-timepicker'
+  import VueTimepicker from 'vue2-timepicker';
   import Datepicker from 'vuejs-datepicker';
+  import Header from './Navbar';
 
   export default {
     name: 'worklist',
@@ -100,7 +105,7 @@
       }
     },
     mounted(){
-      let url = '/api/worklist';
+      let url = '/worklist';
       this.axios.get(url)
         .then((response) => {
           this.worklist = response.data;
@@ -121,7 +126,7 @@
           this.newWorklist.exam_date = this.date.toISOString().substring(0, 10);
         }
 
-        let url = '/api/worklist';
+        let url = '/worklist';
         this.post(url, {
           sample_number: this.newWorklist.sample_number,
           patient_id: this.newWorklist.patient_id,
@@ -155,7 +160,7 @@
         this.rows.splice(index, 1);
       },
       removeWorklist: function (id, index) {
-        let url = '/api/worklist/' + id;
+        let url = '/worklist/' + id;
         this.axios.delete(url, {
         })
           .then((response) => {
@@ -172,7 +177,7 @@
 
     },
     components: {
-      VueTimepicker, Datepicker
+      VueTimepicker, Datepicker, Header
     }
   }
 </script>
@@ -180,9 +185,5 @@
 <style scoped>
   input { display: block},
   p{text-align: left},
-  button{display: block},
-  .worklist{
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
+  button{display: block}
 </style>
