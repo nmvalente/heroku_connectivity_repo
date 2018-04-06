@@ -4,6 +4,9 @@ import BookList from '@/components/BookList'
 import ShowBook from '@/components/ShowBook'
 import CreateBook from '@/components/CreateBook'
 import EditBook from '@/components/EditBook'
+import Results from '@/components/Results'
+import Worklist from '@/components/Worklist'
+import Home from '@/components/Home'
 
 Vue.use(Router)
 
