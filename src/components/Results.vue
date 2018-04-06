@@ -55,7 +55,6 @@
     },
     methods:{
       viewAllResults: function () {
-        this.axios.
         this.axios.get('/api/results')
           .then((response) => {
             console.log(response.data);

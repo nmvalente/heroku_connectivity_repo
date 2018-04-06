@@ -4,15 +4,16 @@ let schema = mongoose.Schema
 // ## Schema
 
 let ResultSchema = schema({
-    test_name: {type: String},
-    unit: {type: String},
-    value: {type: String},
-    ref_lower:  {type: String},
-    ref_upper:  {type: String},
-    warnings: [{type:String}]
+  test_name: {type: String},
+  unit: {type: String},
+  value: {type: String},
+  ref_lower:  {type: String},
+  ref_upper:  {type: String},
+  warnings: [{type:String}]
 });
 
 let ResultsSchema = schema({
+    connectivity_id: {type: String},
     sample_number: {type: String},
     test_date: {type: Date},
     test_time: {type: Date},
@@ -20,13 +21,13 @@ let ResultsSchema = schema({
     patient_name:{type: String},
     patient_species:{type: String},
     results:[ResultSchema]}
-    ,
-    {timestamps : true});
+  ,
+  {timestamps : true});
 
 let Results = mongoose.model('Results', ResultsSchema)
 let Result = mongoose.model('Result', ResultSchema)
 
 module.exports = {
-    Results: Results,
-    Result: Result
+  Results: Results,
+  Result: Result
 };

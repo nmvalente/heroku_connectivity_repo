@@ -38,4 +38,17 @@ router.route('/:id')
     })
   });
 
+/* GET WORKLIST FILTER BY DATE */
+router.route('/:min_date/:max_date')
+.get(function(req, res) {
+  let min_date = req.params.min_date;
+  let max_date = req.params.max_date;
+  Results.find({connectivity_id: req.body.connectivity_id, test_date: {$gte: new Date(min_date), $lt: new Date(max_date)}}, function (err, results) {
+    if (err) {
+      return res.json({status: 'failure in find'});
+    }
+    else return res.json(results);
+  })
+});
+
 module.exports = router;
