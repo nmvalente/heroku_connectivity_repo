@@ -7,10 +7,12 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+import VueTimepicker from 'vue2-timepicker'
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue);
+Vue.use(VueTimepicker);
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
