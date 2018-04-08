@@ -31,8 +31,8 @@ app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use(express.static(path.join(__dirname, 'dist')));
 //app.use('/books', express.static(path.join(__dirname, 'dist')));
 app.use('/book', book);
-app.use('/result', result);
-app.use('/worklist', worklist);
+app.use('/api/result', result);
+app.use('/api/worklist', worklist);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -4,18 +4,18 @@
       <div class="row">
         <div class="col-sm-12">
           <ul v-if="!about" class="my-nav text-center">
-            <!--<li><router-link to="/about#about" style="color: black">About</router-link></li>
+            <li><router-link to="/about#about" style="color: black">About</router-link></li>
             <li><router-link to="/about#help" style="color: black">Help</router-link></li>
             <li><router-link to="/about#contacts" style="color: black">Contacts</router-link></li>
             <li><router-link to="/about#the-team" style="color: black">The Team</router-link></li>
-            <li><router-link to="/about#terms-of-use" style="color: black">Terms of Use</router-link></li>-->
+            <li><router-link to="/about#terms-of-use" style="color: black">Terms of Use</router-link></li>
           </ul>
           <ul v-else class="my-nav text-center">
-            <!--<li><router-link to="/about#about" v-scroll-to="'#about'" style="color: black"><span ref="about">About</span></router-link></li>
+            <li><router-link to="/about#about" v-scroll-to="'#about'" style="color: black"><span ref="about">About</span></router-link></li>
             <li><router-link to="/about#help" v-scroll-to="'#help'" style="color: black"><span ref="help">Help</span></router-link></li>
             <li><router-link to="/about#contacts" v-scroll-to="'#contacts'" style="color: black"><span ref="contacts">Contacts</span></router-link></li>
             <li><router-link to="/about#the-team" v-scroll-to="'#the-team'" style="color: black"><span ref="theTeam">The Team</span></router-link></li>
-            <li><router-link to="/about#terms-of-use" v-scroll-to="'#terms-of-use'" style="color: black"><span ref="termsOfUse">Terms of Use</span></router-link></li>-->
+            <li><router-link to="/about#terms-of-use" v-scroll-to="'#terms-of-use'" style="color: black"><span ref="termsOfUse">Terms of Use</span></router-link></li>
           </ul>
         </div>
       </div>

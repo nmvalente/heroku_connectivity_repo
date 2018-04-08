@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="result">
     <div v-for="result in value" class="card card-body">
       <li>Sample Number: {{ result.sample_number }}</li>
       <li>Test Date: {{ result.test_date }}</li>

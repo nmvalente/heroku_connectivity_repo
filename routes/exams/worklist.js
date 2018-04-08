@@ -28,6 +28,7 @@ router.route('/')
       })
     }
   );
+
 router.route('/:id')
   .delete(function(req, res){
     Worklist.findByIdAndRemove(req.params.id,function(err, worklist) {

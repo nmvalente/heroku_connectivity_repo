@@ -1,18 +1,20 @@
 <template>
   <div id="app">
     <!-- <img src="../assets/logo.jpg">-->
-<Header></Header>
+<Navbar></Navbar>
+    <Footer></Footer>
   </div>
 </template>
 
 
 
 <script>
-  import Header from "./Navbar";
+  import Navbar from "./Navbar";
+  import Footer from "./Footer";
 
   export default {
     name: 'App',
-    components: {Header}
+    components: {Footer}
   }
 </script>
 
