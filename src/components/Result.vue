@@ -1,28 +1,38 @@
 <template>
   <div id="result">
-    <div v-for="result in value" class="card card-body">
-      <li>Sample Number: {{ result.sample_number }}</li>
-      <li>Test Date: {{ result.test_date }}</li>
-      <li>Test time: {{ result.test_time }}</li>
-      <li>Patient ID: {{ result.patient_id }}</li>
-      <li>Patient Name: {{ result.patient_name }}</li>
-      <li>Patient Specie: {{ result.patient_species }}</li>
-      <li>Patieng Age: {{ result.patient_age }}</li>
-      <li>Patient Gender: {{ result.patient_gender }}</li>
-      <p>Results:</p>
-      <div v-for="(item,index) in result.results">
-        <p> Result: {{ index+1 }}</p>
-        <li>Test name: {{item.test_name}}</li>
-        <li>Unit: {{item.unit}}</li>
-        <li>Value: {{item.value}}</li>
-        <li>Ref. lower: {{item.ref_lower}}</li>
-        <li>Ref. upper: {{item.ref_upper}}</li>
-        <p>Warnings: </p>
-        <div v-for="(warning,i) in item.warnings">
-          <li>{{warning}}</li>
-        </div>
-      </div>
-    </div>
+
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Sample Number</th>
+        <th>Test Date</th>
+        <th>Patient Name</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="result in value">
+        <td>result.sample_number</td>
+        <td>result.test_date</td>
+        <td>result.patient_name</td>
+        <td><a href="/show-result/result._id" class="btn btn-info">Details</a></td>
+      </tr>
+      <tr>
+        <td>Mary</td>
+        <td>Moe</td>
+        <td>mary@example.com</td>
+        <td><a href="/show-result/5ac78d505be86b2878ec8f68" class="btn btn-info">Details</a></td>
+      </tr>
+      <tr>
+        <td>July</td>
+        <td>Dooley</td>
+        <td>july@example.com</td>
+        <td><a href="/show-result/:id" class="btn btn-info">Details</a></td>
+      </tr>
+      </tbody>
+    </table>
+
+
   </div>
 </template>
 

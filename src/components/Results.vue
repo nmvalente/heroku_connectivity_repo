@@ -46,21 +46,21 @@
               <div class="panel panel-default">
                 <div class="panel-body">
                   <div class="pull-right">
-                    a
+
                   </div>
                   <div style="height: 225px">
-                    b
+
                   </div>
-                  <h1 class="text-center">c</h1>
+                  <h1 class="text-center"></h1>
 
                 </div>
               </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-6">
-              <h1 class="data">Surveys</h1>
+              <h1 class="data"></h1>
               <div class="panel panel-default">
                 <div class="panel-footer clearfix">
-                  <h5 class="pull-right" style="margin: 0; margin-right: 20px">fhdfdsffd</h5>
+                  <h5 class="pull-right" style="margin: 0; margin-right: 20px"></h5>
                 </div>
               </div>
             </div>
@@ -78,6 +78,8 @@
   import Result from './Result';
   import Navbar from './Navbar';
   import Footer from './Footer';
+  import {external, base} from '../main.js';
+  import axios from 'axios'
 
   export default {
     name: 'Results',
@@ -100,15 +102,14 @@
     },
     methods:{
       viewAllResults: function () {
-        console.log("entra1");
-        this.axios.get('/api/result')
-        .then((response) => {
-          console.log(response.data);
-          this.results = response.data;
-        })
-        .catch((e) => {
-          console.error(e);
-        });
+
+        base.get('api/result')
+          .then((response) => {
+            this.results = response.data;
+          })
+          .catch((e) => {
+            console.error(e);
+          });
       },
       viewFilteredResults: function () {
         /*var month = this.state.min_date.getUTCMonth() + 1; //months from 1-12
@@ -123,16 +124,16 @@
           //this.date_selected = true;
           return;
         }
-        let url = '/api/result/' + min_date + '/' + max_date;
+        let url = 'api/result' + '?date_min=' + min_date + '&date_max=' + max_date;
         console.log(url);
-        this.axios.get(url)
-        .then((response) => {
-          console.log(response.data);
-          this.results_filtered = response.data;
-        })
-        .catch((e) => {
-          console.error(e);
-        });
+        base.get(url)
+          .then((response) => {
+            console.log(response.data);
+            this.results_filtered = response.data;
+          })
+          .catch((e) => {
+            console.error(e);
+          });
       },
       getMin: function () {
         console.log('Min Date: ' + this.state.min_date);

@@ -9,13 +9,11 @@ import router from './router'
 import VueTimepicker from 'vue2-timepicker'
 import Datepicker from 'vuejs-datepicker';
 import axios from 'axios'
-import VueAxios from 'vue-axios'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(VueTimepicker);
 Vue.use(Datepicker);
-Vue.use(VueAxios, axios);
 
 /* eslint-disable no-new */
 /*new Vue({
@@ -30,3 +28,15 @@ new Vue({
   router,
   template: '<router-view></router-view>'
 }).$mount('#app')
+
+let external = axios.create({
+  baseURL: `http://jsonplaceholder.typicode.com/`
+});
+
+let base = axios.create({
+  baseURL: 'http://localhost:8080/'
+});
+
+export {
+  external, base
+}

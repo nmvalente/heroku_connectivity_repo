@@ -15,7 +15,7 @@ router.route('/')
         if (err) {
           return res.json({ status: 'failure'});
         }
-        else return res.json({status : 'success', object: worklist});
+        else return res.json({status : 'success'});
       });
     }
   )
@@ -33,14 +33,15 @@ router.route('/:id')
   .delete(function(req, res){
     Worklist.findByIdAndRemove(req.params.id,function(err, worklist) {
       if (err) {
-        return res.json({ status: 'failure in find'});
+        return res.json({ status: 'failure'});
       }
       return res.json({status : 'success'});
     })
   });
 
-/* GET WORKLIST FILTER BY DATE */
-router.route('/:min_date/:max_date')
+
+/* MY SIDE ---> GET WORKLIST FILTER BY DATE */
+router.route('date_min=:min_date&date_max=:max_date')
 .get(function(req, res) {
   let min_date = req.params.min_date;
   let max_date = req.params.max_date;
@@ -51,5 +52,19 @@ router.route('/:min_date/:max_date')
     else return res.json(results);
   })
 });
+
+
+/* CLOUD --- > GET WORKLIST FILTER BY DATE */
+router.route('connectivity_id=:connectivity_id&date_min=:min_date&date_max=:max_date')
+  .get(function(req, res) {
+    let min_date = req.params.min_date;
+    let max_date = req.params.max_date;
+    Results.find({connectivity_id: req.params.connectivity_id, test_date: {$gte: new Date(min_date), $lt: new Date(max_date)}}, function (err, results) {
+      if (err) {
+        return res.json({status: 'failure in find'});
+      }
+      else return res.json(results);
+    })
+  });
 
 module.exports = router;

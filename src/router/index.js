@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import BookList from '@/components/BookList'
-import ShowBook from '@/components/ShowBook'
-import CreateBook from '@/components/CreateBook'
-import EditBook from '@/components/EditBook'
+import ShowResult from '@/components/ShowResult'
+import CreateWorklist from '@/components/CreateWorklist'
 import Results from '@/components/Results'
 import Worklist from '@/components/Worklist'
 import Index from '@/components/Index'
+import NotFound from '@/components/NotFound'
 
 Vue.use(Router)
 
@@ -29,24 +28,20 @@ export default new Router({
       component: Worklist
     },
     {
-      path: '/show-book/:id',
-      name: 'ShowBook',
-      component: ShowBook
+      path: '/results/show/:id',
+      name: 'ShowResult',
+      component: ShowResult
     },
     {
-      path: '/add-book',
-      name: 'CreateBook',
-      component: CreateBook
+      path: '/worklist/add-worklist',
+      name: 'CreateWorklist',
+      component: CreateWorklist
     },
     {
-      path: '/edit-book/:id',
-      name: 'EditBook',
-      component: EditBook
-    },
-    {
-      path: '/all-books',
-      name: 'BookList',
-      component: BookList
+      path: '*',
+      name: 'NotFound',
+      component: NotFound
     }
   ]
 })
+
