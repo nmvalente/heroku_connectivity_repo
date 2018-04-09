@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <!-- <img src="../assets/logo.jpg">-->
-<Navbar></Navbar>
+    <img src="../assets/logo.jpg">
+    <Navbar></Navbar>
+    dsadpoksapodksapo
     <Footer></Footer>
   </div>
 </template>

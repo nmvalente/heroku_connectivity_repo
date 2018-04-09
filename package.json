@@ -10,7 +10,8 @@
     "server": "nodemon ./bin/www",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run e2e",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "dev2": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.5",
