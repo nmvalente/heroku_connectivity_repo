@@ -142,7 +142,7 @@
                           <div>{{test.test_name}}</div>
                         </div>
                       </td>
-                      <td>{{wl.exam_date.split('T')[0]}}</td>
+                      <td v-if="wl.exam_date !== undefined">{{wl.exam_date.split('T')[0]}}</td>
                       <td>{{wl.exam_time}}</td>
                       <td>
                         <button type="button" class="btn btn-danger btn-sm" @click="removeWorklist(wl._id, index)">Delete</button>
@@ -249,7 +249,7 @@
       }
     },
     mounted(){
-      let url = 'api/worklist';
+      let url = 'worklist';
       instance.get(url)
         .then((response) => {
           this.worklist = response.data;
@@ -269,7 +269,7 @@
         if(this.date !== undefined) {
           this.newWorklist.exam_date = this.date.toISOString().substring(0, 10);
         }
-        let url = 'api/worklist';
+        let url = 'worklist';
         instance.post(url, {
           sample_number: this.newWorklist.sample_number,
           patient_id: this.newWorklist.patient_id,
@@ -300,7 +300,7 @@
         this.rows.splice(index, 1);
       },
       removeWorklist: function (id, index) {
-        let url = 'api/worklist/' + id;
+        let url = 'worklist/' + id;
         instance.delete(url, {
         })
           .then((response) => {
@@ -315,7 +315,7 @@
       sendWorklist: function (worklist) {
         let url = 'worklist';
         console.log('hello');
-        external.post(url, worklist)
+        external.post(url, JSON.stringify(worklist))
           .then((response) => {
 
           })

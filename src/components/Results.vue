@@ -106,7 +106,7 @@
     methods:{
       viewAllResults: function () {
 
-        instance.get('api/results')
+        instance.get('results')
           .then((response) => {
             this.results = response.data;
           })
@@ -127,7 +127,7 @@
           //this.date_selected = true;
           return;
         }
-        let url = 'api/results/' + min_date + '/' + max_date;
+        let url = 'results/' + min_date + '/' + max_date;
         instance.get(url)
           .then((response) => {
             this.results_filtered = response.data;
@@ -142,8 +142,7 @@
           .then((response) => {
             this.results  = response.data;
 
-
-            instance.put('api/results' + url, this.results)
+            instance.post(url + '/update', JSON.stringify(this.results))
               .then((response) => {
                 this.results  = response.data;
               })

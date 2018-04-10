@@ -12,7 +12,7 @@
       <tbody>
       <tr v-for="(item,index) in value">
         <td>{{item.sample_number}}</td>
-        <td>{{item.test_date.split('T')[0]}}</td>
+        <td v-if="item.test_date !== undefined">{{item.test_date.split('T')[0]}}</td>
         <td>{{item.patient_name}}</td>
         <td><b-btn variant="info" @click.stop="details(item._id, index)">Details</b-btn></td>
       </tr>

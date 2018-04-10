@@ -13,7 +13,7 @@
           <template slot="lead">
 
             Sample Number: {{ result.sample_number }}<br>
-            Test Date: {{ result.test_date.split('T')[0] }}<br>
+            <li v-if="result.test_date !== undefined">Test Date: {{ result.test_date.split('T')[0] }}</li>
             Test time: {{ result.test_time }}<br>
             Patient ID: {{ result.patient_id }}<br>
             Patient Name: {{ result.patient_name }}<br>
@@ -36,7 +36,7 @@
 
           </template>
           <hr class="my-4">
-          <p>
+          <p v-if="result.updatedAt !== undefined">
             Updated Date: {{result.updatedAt.split('T')[0]}}
 
           </p>
@@ -96,23 +96,23 @@
       }
     },
     created () {
-      instance.get(`api/results/` + this.$route.params.id)
+      instance.get(`results/` + this.$route.params.id)
+      .then((response) => {
+        this.result = response.data.object
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
+    },
+    methods: {
+      deleteResult (resultid) {
+        instance.delete('results/' + resultid)
         .then((response) => {
-          this.result = response.data.object
+          window.location.href = '/results';
         })
         .catch(e => {
           this.errors.push(e)
         })
-    },
-    methods: {
-      deleteResult (resultid) {
-        instance.delete('api/results/' + resultid)
-          .then((response) => {
-            window.location.href = '/results';
-          })
-          .catch(e => {
-            this.errors.push(e)
-          })
       }
     }
   }

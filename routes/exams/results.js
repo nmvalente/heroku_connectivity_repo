@@ -47,18 +47,7 @@ router.route('/')
         }
         else return res.sendStatus(200);
       });
-    })/* UPDATE RESULTS */
-  .put(function(req, res) {
-    let results = req.body;
-    for(result in results) {
-      Result.findByIdAndUpdate(result._id,function(err, r) {
-        if (err) {
-          return res.json({ status: 'failure'});
-        }
-      })
-    }
-    return res.json({status : 'success'});
-  });
+    });
 
 /* GET RESULTS FILTER BY DATE */
 router.route('/:min_date/:max_date')
@@ -94,5 +83,20 @@ router.route('/:id')
       return res.json({status : 'success'});
     })
   });
+
+/* UPDATE RESULTS */
+router.route('/update')
+.post(function(req, res) {
+  let results = req.body;
+  console.log(results);
+  for(result in results) {
+    Result.findByIdAndUpdate(result._id,function(err, r) {
+      if (err) {
+        return res.json({ status: 'failure'});
+      }
+    })
+  }
+  return res.json({status : 'success'});
+});
 
 module.exports = router;
