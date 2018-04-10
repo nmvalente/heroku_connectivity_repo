@@ -1,6 +1,5 @@
 <template>
   <div id="result">
-
     <table class="table table-hover">
       <thead>
       <tr>
@@ -11,27 +10,20 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="result in value">
-        <td>result.sample_number</td>
-        <td>result.test_date</td>
-        <td>result.patient_name</td>
-        <td><a href="/show-result/result._id" class="btn btn-info">Details</a></td>
+      <tr v-for="(item,index) in value">
+        <td>{{item.sample_number}}</td>
+        <td>{{item.test_date.split('T')[0]}}</td>
+        <td>{{item.patient_name}}</td>
+        <td><b-btn variant="info" @click.stop="details(item._id, index)">Details</b-btn></td>
       </tr>
-      <tr>
+      <!--<tr>
         <td>Mary</td>
         <td>Moe</td>
         <td>mary@example.com</td>
-        <td><a href="/show-result/5ac78d505be86b2878ec8f68" class="btn btn-info">Details</a></td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-        <td><a href="/show-result/:id" class="btn btn-info">Details</a></td>
-      </tr>
+        <td><a href="/results/5ac78d505be86b2878ec8f68" class="btn btn-info">Details</a></td>
+      </tr>-->
       </tbody>
     </table>
-
 
   </div>
 </template>
@@ -39,7 +31,23 @@
 <script>
   export default {
     name: "Result",
-    props:['value']
+    props: ['value'],
+    data() {
+      return {
+
+      }
+    },
+    created() {
+
+    },
+    methods:{
+      details (id, index) {
+        this.$router.push({
+          name: 'ShowResult',
+          params: { id: id },
+        })
+      }
+    }
   }
 </script>
 

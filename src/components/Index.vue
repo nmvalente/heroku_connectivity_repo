@@ -11,7 +11,7 @@
             <div class="col-sm-12">
               <div class="panel panel-default">
                 <div class="panel-body">
-                  <h1>ROW 1 pjfdgpojgfpoidjogiofr</h1>
+                  <h1>ROW 1</h1>
                 </div>
               </div>
             </div>
@@ -25,7 +25,7 @@
                   <div style="height: 225px">
                     ROW 2.2
                   </div>
-                  <h1 class="text-center">c</h1>
+                  <h1 class="text-center"></h1>
                 </div>
               </div>
             </div>

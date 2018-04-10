@@ -8,12 +8,13 @@ import Vue from 'vue'
 import router from './router'
 import VueTimepicker from 'vue2-timepicker'
 import Datepicker from 'vuejs-datepicker';
-import axios from 'axios'
+import VueScrollTo from 'vue-scrollto'
 
-Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(VueTimepicker);
 Vue.use(Datepicker);
+Vue.use(VueScrollTo, { duration: 1000 });
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 /*new Vue({
@@ -28,15 +29,3 @@ new Vue({
   router,
   template: '<router-view></router-view>'
 }).$mount('#app')
-
-let external = axios.create({
-  baseURL: `http://jsonplaceholder.typicode.com/`
-});
-
-let base = axios.create({
-  baseURL: 'http://localhost:8080/'
-});
-
-export {
-  external, base
-}

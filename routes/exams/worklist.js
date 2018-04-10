@@ -15,7 +15,7 @@ router.route('/')
         if (err) {
           return res.json({ status: 'failure'});
         }
-        else return res.json({status : 'success'});
+        else return res.json({status : 'success', object: worklist});
       });
     }
   )

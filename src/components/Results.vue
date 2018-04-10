@@ -15,20 +15,22 @@
                       Show all
                     </button>
                     <button class="btn btn-primary" data-parent="#collapse-buttons" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
-                      View Results by date
+                      Show by date
+                    </button>
+                    <button class="btn btn-primary" type="button" aria-expanded="false" @click="updateResults">
+                      Get Results
                     </button>
 
+
                     <div class="collapse" id="collapseExample1">
-                      <Result id="all_results" :value="results"></Result>
+                      <Result id="all_results" v-bind:value="results"></Result>
                     </div>
 
                     <div class="collapse" id="collapseExample2">
                       <datepicker v-on:closed="getMin" format="yyyy-MM-dd" v-model="state.min_date" placeholder="Select min date"></datepicker>
                       <datepicker v-on:closed="getMax" format="yyyy-MM-dd" v-model="state.max_date" placeholder="Select max date"></datepicker>
                       <button class="btn btn-primary" v-on:click="viewFilteredResults()">Show</button>
-
-                      <Result :value="results_filtered" id="results_filtered"></Result>
-
+                      <Result id="results_filtered" v-bind:value="results_filtered"></Result>
                       <div v-if="date_selected === true" class="alert alert-warning alert-dismissible fade show" role="alert">
                         <strong>Holy guacamole!</strong> You should check in on some of those fields below.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -36,6 +38,8 @@
                         </button>
                       </div>
                     </div>
+
+
                   </div>
 
                 </div>
@@ -78,8 +82,7 @@
   import Result from './Result';
   import Navbar from './Navbar';
   import Footer from './Footer';
-  import {external, base} from '../main.js';
-  import axios from 'axios'
+  import {instance, external} from '../../config/config';
 
   export default {
     name: 'Results',
@@ -98,12 +101,12 @@
       }
     },
     mounted(){
-      //this.viewResults()
+
     },
     methods:{
       viewAllResults: function () {
 
-        base.get('api/result')
+        instance.get('api/results')
           .then((response) => {
             this.results = response.data;
           })
@@ -124,12 +127,31 @@
           //this.date_selected = true;
           return;
         }
-        let url = 'api/result' + '?date_min=' + min_date + '&date_max=' + max_date;
-        console.log(url);
-        base.get(url)
+        let url = 'api/results/' + min_date + '/' + max_date;
+        instance.get(url)
           .then((response) => {
-            console.log(response.data);
             this.results_filtered = response.data;
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      },
+      updateResults: function(){
+        let url = 'results';
+        external.get(url)
+          .then((response) => {
+            this.results  = response.data;
+
+
+            instance.put('api/results' + url, this.results)
+              .then((response) => {
+                this.results  = response.data;
+              })
+              .catch((e) => {
+                console.error(e);
+              });
+
+
           })
           .catch((e) => {
             console.error(e);

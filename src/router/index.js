@@ -11,6 +11,7 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
+  base: __dirname,
   routes: [
     {
       path: '/',
@@ -28,7 +29,7 @@ export default new Router({
       component: Worklist
     },
     {
-      path: '/results/show/:id',
+      path: '/results/:id',
       name: 'ShowResult',
       component: ShowResult
     },
@@ -36,7 +37,12 @@ export default new Router({
       path: '/worklist/add-worklist',
       name: 'CreateWorklist',
       component: CreateWorklist
-    },
+    },/*
+    {
+      path: '/results/date_min=:min&date_max=:max',
+      name: 'CreateWorklist',
+      component: CreateWorklist
+    },*/
     {
       path: '*',
       name: 'NotFound',

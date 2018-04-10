@@ -47,7 +47,18 @@ router.route('/')
         }
         else return res.sendStatus(200);
       });
-    });
+    })/* UPDATE RESULTS */
+  .put(function(req, res) {
+    let results = req.body;
+    for(result in results) {
+      Result.findByIdAndUpdate(result._id,function(err, r) {
+        if (err) {
+          return res.json({ status: 'failure'});
+        }
+      })
+    }
+    return res.json({status : 'success'});
+  });
 
 /* GET RESULTS FILTER BY DATE */
 router.route('/:min_date/:max_date')
@@ -62,6 +73,25 @@ router.route('/:min_date/:max_date')
       }
       console.log(results);
       return res.json(results);
+    })
+  });
+
+/* GET SPECIFIC RESULT */
+router.route('/:id')
+  .get(function(req, res){
+    Result.findById(req.params.id,function(err, result) {
+      if (err) {
+        return res.json({ status: 'failure'});
+      }
+      return res.json({status : 'success', object : result});
+    })
+  })/* DELETE SPECIFIC RESULT */
+  .delete(function(req, res){
+    Result.findByIdAndRemove(req.params.id,function(err, result) {
+      if (err) {
+        return res.json({ status: 'failure'});
+      }
+      return res.json({status : 'success'});
     })
   });
 

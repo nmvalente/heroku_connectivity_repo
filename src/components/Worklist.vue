@@ -18,7 +18,7 @@
                       <b-col cols="12">
                         <h2>
                           Add Worklist
-                          <router-link to="/worklist">(Worklist)</router-link>
+                          <router-link to="/">(Home)</router-link>
                         </h2>
 
                         <b-form @submit="addWorklist">
@@ -85,16 +85,24 @@
                             <!-- <b-form-input value="time" v-model="time" type="time"></b-form-input>-->
                           </b-form-group>
 
-                          <p>Tests</p>
-                          <div class="test_rows form-group row">
+
+
+                          <b-form-group id="fieldsetHorizontal"
+                                        horizontal
+                                        :label-cols="4"
+                                        breakpoint="md"
+                                        label="Tests">
+
+                            <button type="button" class="btn btn-success mt2 mb2" @click="addRow">Add tests</button>
                             <div class="rows_form" v-for="(row, index) in rows">
                               <input type="text" class="form-control mb-2" placeholder="Test Name" v-model="row.test_name">
                               <span class="float" style="cursor: pointer" @click="removeElement(index)">X</span>
                             </div>
-                          </div>
-                          <button type="button" class="btn btn-success mt2 mb2" @click="addRow">
-                            Add more tests
-                          </button>
+
+
+                          </b-form-group>
+
+
 
                           <b-button type="submit" variant="primary">Save</b-button>
                         </b-form>
@@ -123,20 +131,23 @@
                     <tbody>
                     <tr v-for="(wl, index) in worklist">
                       <td>{{wl._id}} </td>
-                      <td>Sample Number: {{wl.sample_number}}</td>
-                      <td>Patient ID: {{wl.patient_id}}</td>
-                      <td>Patient Name: {{wl.patient_name}}</td>
-                      <td>Patient Specie: {{wl.patient_species}}</td>
-                      <td>Patient Gender: {{wl.patient_gender}}</td>
-                      <td>Patient Age: {{wl.patient_age}}</td>
-                      <td>Tests:
+                      <td>{{wl.sample_number}}</td>
+                      <td>{{wl.patient_id}}</td>
+                      <td>{{wl.patient_name}}</td>
+                      <td>{{wl.patient_species}}</td>
+                      <td>{{wl.patient_gender}}</td>
+                      <td>{{wl.patient_age}}</td>
+                      <td>
                         <div class="showTestName" v-for="test in wl.tests">
                           <div>{{test.test_name}}</div>
                         </div>
                       </td>
-                      <td>Exam Date: {{wl.exam_date}}</td>
-                      <td>Exam Time: {{wl.exam_time}}</td>
-                      <td><button type="button" class="btn btn-danger btn-sm" @click="removeWorklist(wl._id, index)">Delete</button></td>
+                      <td>{{wl.exam_date.split('T')[0]}}</td>
+                      <td>{{wl.exam_time}}</td>
+                      <td>
+                        <button type="button" class="btn btn-danger btn-sm" @click="removeWorklist(wl._id, index)">Delete</button>
+                        <button type="button" class="btn btn-success btn-sm" @click="sendWorklist(wl)">Send</button>
+                      </td>
                     </tr>
 
 
@@ -151,11 +162,15 @@
                       <td>
                         <div class="showTestName">
                           <div>dfsfdsf</div>
+                          <div>dfsfdsf</div>
+                          <div>dfsfdsf</div>
                         </div>
                       </td>
                       <td>2018-05-23</td>
                       <td>22:10:45</td>
-                      <td><button type="button" class="btn btn-danger btn-sm" @click="removeWorklist(wl._id, index)">Delete</button></td>
+                      <td><button type="button" class="btn btn-danger btn-sm">Delete</button>
+                        <button type="button" class="btn btn-success btn-sm" >Send</button>
+                      </td>
                     </tr>
 
                     </tbody>
@@ -199,9 +214,9 @@
 
   import Navbar from './Navbar';
   import Footer from './Footer';
-  import {external, base} from '../main.js';
   import Datepicker from 'vuejs-datepicker';
   import Timepicker from 'vue2-timepicker';
+  import {instance, external} from '../../config/config';
 
   export default {
     name: 'worklist',
@@ -235,7 +250,7 @@
     },
     mounted(){
       let url = 'api/worklist';
-      base.get(url)
+      instance.get(url)
         .then((response) => {
           this.worklist = response.data;
         })
@@ -250,13 +265,12 @@
       addWorklist: function (e) {
         e.preventDefault();
 
-        let time_formatted = this.yourTimeValue.HH +':'+this.yourTimeValue.mm+':'+this.yourTimeValue.ss;
+        let time_formatted = this.time.HH +':'+this.time.mm+':'+this.time.ss;
         if(this.date !== undefined) {
           this.newWorklist.exam_date = this.date.toISOString().substring(0, 10);
         }
         let url = 'api/worklist';
-        console.log(url);
-        base.post(url, {
+        instance.post(url, {
           sample_number: this.newWorklist.sample_number,
           patient_id: this.newWorklist.patient_id,
           patient_name: this.newWorklist.patient_name,
@@ -269,6 +283,7 @@
         })
           .then((response) => {
             this.state = response.data.status;
+
             let obj = response.data.object;
             this.worklist.push(obj);
           })
@@ -286,13 +301,23 @@
       },
       removeWorklist: function (id, index) {
         let url = 'api/worklist/' + id;
-        console.log(url);
-        base.delete(url, {
+        instance.delete(url, {
         })
           .then((response) => {
             this.state = response.data.status;
             if(this.state === 'success')
               this.worklist.splice(index, 1);
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      },
+      sendWorklist: function (worklist) {
+        let url = 'worklist';
+        console.log('hello');
+        external.post(url, worklist)
+          .then((response) => {
+
           })
           .catch((e) => {
             console.error(e);

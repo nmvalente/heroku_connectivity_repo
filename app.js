@@ -1,9 +1,9 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
-
+let express = require('express');
+let path = require('path');
+let favicon = require('serve-favicon');
+let logger = require('morgan');
+let bodyParser = require('body-parser');
+let cors = require('cors');
 let mongoose = require('mongoose');
 
 //Set up default mongoose connection
@@ -19,24 +19,25 @@ let db = mongoose.connection;
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-var book = require('./routes/book');
-var result = require('./routes/exams/results');
-var worklist = require('./routes/exams/worklist');
+let book = require('./routes/book');
+let results = require('./routes/exams/results');
+let worklist = require('./routes/exams/worklist');
 
-var app = express();
+let app = express();
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended':'false'}));
 app.use(express.static(path.join(__dirname, 'dist')));
 //app.use('/books', express.static(path.join(__dirname, 'dist')));
 app.use('/book', book);
-app.use('/api/result', result);
+app.use('/api/results', results);
 app.use('/api/worklist', worklist);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
